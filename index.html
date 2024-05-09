@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Contact information">
+    <title>Weather in Your City</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="heading">
+        <a href="/" aria-label="weather">
+            <img src="img/logo_white_cropped.png" class="logo" role="img" alt="Logo Image">
+        </a>
+        <h1><strong>Weather in Your City</strong></h1>
+    </header>
+
+    <section id="description" class="data-container">
+        <p>This is a simple weather application built using HTML/CSS/JavaScript, and API.</p>
+        <p>It allows users to check the weather forecast for locations within the United States.</p>
+        <p>Simply enter a US ZIP code to get current weather information.</p>
+        <label for="zipcode"></label>
+        <input type="number" name="zipcode" id="zipcode" required="true" placeholder="zip code">
+        <div id="location" class="location"></div>
+        <div id="temp" class="temperature">
+            <span id="tempValue"></span><span id="tempUnit" class="unit" style="display: none;">°F</span>
+        </div>
+
+    </section>
+
+    <script src="js/index.js"></script>
+</body>
+</html>

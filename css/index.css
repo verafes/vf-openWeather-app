@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-align: center;
+}
+body {
+    font-family: 'Krub', sans-serif;
+    font-size: 1em;
+    word-spacing: 1px;
+}
+.heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.25em;
+    position:sticky;
+    width: 100%;
+    background-color: #48484a;
+    text-decoration-color: white;
+}
+.logo {
+    width: 7rem;
+    background-size: cover;
+    display: block;
+    margin: 1rem 1rem;
+}
+.data-container{
+    /*padding: 0 1.5rem 0.5rem 0.625rem;*/
+}
+.temperature {
+    margin-top: 0.1em;
+    min-width: fit-content;
+    font-size: 7em;
+    color: #48484a;
+}
+.unit {
+    padding-left: 0.5em;
+    font-size: 0.5em;
+}
+h1 {
+    color: #f2f2f2;
+    margin-bottom: 0.35em;
+}
+.city {
+    color: #eb6e4c;
+    margin: 0.35em 0 0.35em 0;
+    justify-self: left;
+    text-transform: capitalize;
+    font-size: 3em;
+}
+p{
+    padding: 0 0.65em 0.65em 0;
+}
+#zipcode {
+    border: 1px solid #aeadad;
+    border-radius: 0.35rem;
+    padding: 0.5em;
+    margin: 1em 0;
+    text-transform: capitalize;
+}
+.error-message {
+    font-size: 16px;
+    color: red;
+    margin-bottom: 1em;
+}
+a {
+    cursor: pointer;
+    color: black;
+}
+a:hover {
+    color: #eb6e4c;
+}
+.footer-credit{
+    background-color: #f5f5f5;
+    text-align: center;
+    padding-bottom: 0.2em;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+    .logo {
+        width: 5rem;
+        margin: 1em 0 0 0;
+    }
+    .heading{
+        flex-direction: column;
+        align-items: center;
+        min-height: max-content;
+        display: flex;
+    }
+}

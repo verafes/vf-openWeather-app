@@ -7,6 +7,12 @@
     <title>Weather in Your City</title>
 
     <link rel="stylesheet" href="css/index.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,9 +33,13 @@
         <label for="zipcode"></label>
         <input type="number" name="zipcode" id="zipcode" required="true" placeholder="zip code">
         <div id="location" class="location"></div>
+        <div id="geo" ></div>
+        <div id="weatherDesc"></div>
         <div id="temp" class="temperature">
             <span id="tempValue"></span><span id="tempUnit" class="unit" style="display: none;">°F</span>
         </div>
+        <div id="pressure"></div>
+        <div id="wind"></div>
 
     </section>
 

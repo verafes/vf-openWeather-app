@@ -14,12 +14,23 @@ const baseUrl = 'http://api.openweathermap.org'
 const nameSection = document.getElementById("location");
 const tempValue = document.getElementById("tempValue");
 const tempUnit = document.getElementById("tempUnit");
+const weather = document.getElementById("weatherDesc");
+const pressure = document.getElementById("pressure");
+const geoCords = document.getElementById("geo");
+const wind = document.getElementById("wind");
 
 const getZipCode = () => {
     return document.getElementById("zipcode").value;
 };
 function validateZipCode(zipCode) {
     return zipCode.length === 5 && /^\d+$/.test(zipCode);
+}
+function createWeatherIcon(iconCode) {
+    const iconElement = document.createElement("img");
+    iconElement.src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    iconElement.width = 50;
+    iconElement.height = 50;
+    return iconElement;
 }
 
 const fetchData = () =>  {
@@ -38,8 +49,10 @@ const fetchData = () =>  {
                 const name = data.name;
                 const lat = data.lat;
                 const lon = data.lon;
-                console.log(name, lat, lon)
                 const weatherUrl = baseUrl + `/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+
+                geoCords.textContent = "Geo cords: [" + data.lat + ", " + data.lon + "]";
+                geoCords.classList.add("geo");
 
                 fetch(weatherUrl)
                     .then(response => {
@@ -63,15 +76,27 @@ const fetchData = () =>  {
                         nameSection.textContent = name;
                         nameSection.classList.add("city");
 
+                        const weatherIconCode = weatherData.weather[0].icon;
+                        const weatherIconElement = createWeatherIcon(weatherIconCode);
+
+                        weather.textContent = weatherData.weather[0].description;
+                        weather.classList.add("weather");
+                        weather.appendChild(weatherIconElement);
+
+                        pressure.textContent = "Pressure: " + weatherData.main.pressure +
+                            " hpa,  Humidity: " + weatherData.main.humidity + "%";
+                        pressure.classList.add("geo");
+                        wind.textContent = "Wind: " + weatherData.wind.speed + " m/s"
+                        wind.classList.add("geo");
                     })
-                    .catch(error => console.error('Error fetching weather data:', error));
+                    .catch(error => console.error("Error fetching weather data:", error));
                 tempValue.textContent = "";
                 tempUnit.style.display = "none";
-                nameSection.textContent = 'Error fetching weather data';
+                nameSection.textContent = "Error fetching weather data";
                 nameSection.classList.add("error-message");
             })
-            .catch(error => console.error('Error fetching location data:', error));
-            nameSection.textContent = 'Error fetching location data';
+            .catch(error => console.error("Error fetching location data:", error));
+            nameSection.textContent = "Error fetching location data";
             nameSection.classList.add("error-message");
     }
 }
@@ -85,11 +110,20 @@ const handleZipCodeInput = () => {
         nameSection.textContent = "";
         tempValue.textContent = "";
         tempUnit.style.display = "none";
+        weather.textContent = "";
+        pressure.textContent = "";
+        geoCords.textContent = "";
+        wind.textContent = "";
+
     } else {
         nameSection.textContent = 'Please enter a valid 5-digit zip code';
         nameSection.classList.add("error-message");
         tempValue.textContent = "";
         tempUnit.style.display = "none";
+        weather.textContent = "";
+        pressure.textContent = "";
+        geoCords.textContent = "";
+        wind.textContent = "";
     }
 };
 

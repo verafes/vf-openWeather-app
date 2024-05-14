@@ -27,7 +27,7 @@ body {
     margin: 1rem 1rem;
 }
 .data-container{
-    /*padding: 0 1.5rem 0.5rem 0.625rem;*/
+    padding: 0 1.5rem 0.5rem 0.625rem;
 }
 .temperature {
     margin-top: 0.1em;
@@ -45,10 +45,18 @@ h1 {
 }
 .city {
     color: #eb6e4c;
-    margin: 0.35em 0 0.35em 0;
+    margin: 0.15em 0 0.35em 0;
     justify-self: left;
     text-transform: capitalize;
     font-size: 3em;
+}
+.weather {
+    font-size: 2em;
+    text-transform: capitalize;
+    margin-top: 0.5em;
+}
+.geo {
+    margin-bottom: 1em;
 }
 p{
     padding: 0 0.65em 0.65em 0;
@@ -61,7 +69,7 @@ p{
     text-transform: capitalize;
 }
 .error-message {
-    font-size: 16px;
+    font-size: 1em;
     color: red;
     margin-bottom: 1em;
 }

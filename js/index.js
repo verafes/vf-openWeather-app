@@ -22,9 +22,11 @@ const wind = document.getElementById("wind");
 const getZipCode = () => {
     return document.getElementById("zipcode").value;
 };
+
 function validateZipCode(zipCode) {
     return zipCode.length === 5 && /^\d+$/.test(zipCode);
 }
+
 function createWeatherIcon(iconCode) {
     const iconElement = document.createElement("img");
     iconElement.src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -33,8 +35,8 @@ function createWeatherIcon(iconCode) {
     return iconElement;
 }
 
-const fetchData = () =>  {
-    const zipCode = getZipCode();
+const fetchData = () => {
+    let zipCode = getZipCode();
     const zipCodeUrl = baseUrl + `/geo/1.0/zip?zip=${zipCode},${countryCode}&appid=${APIkey}`;
 
     if (validateZipCode(zipCode)) {
@@ -44,6 +46,10 @@ const fetchData = () =>  {
                     throw new Error('Error fetching location data');
                 }
                 return response.json();
+            })
+            .catch(error => {
+                console.error("Error fetching location data:", error)
+                return;
             })
             .then(data => {
                 const name = data.name;
@@ -89,42 +95,47 @@ const fetchData = () =>  {
                         wind.textContent = "Wind: " + weatherData.wind.speed + " m/s"
                         wind.classList.add("geo");
                     })
-                    .catch(error => console.error("Error fetching weather data:", error));
-                tempValue.textContent = "";
-                tempUnit.style.display = "none";
-                nameSection.textContent = "Error fetching weather data";
-                nameSection.classList.add("error-message");
+                    .catch(error => {
+                        console.error("Error fetching weather data:", error)
+                        tempValue.textContent = "";
+                        tempUnit.style.display = "none";
+                        nameSection.textContent = "An error occurred while fetching weather data. Please try again later.";
+                        nameSection.classList.add("error-message");
+                    });
             })
-            .catch(error => console.error("Error fetching location data:", error));
-            nameSection.textContent = "Error fetching location data";
-            nameSection.classList.add("error-message");
+            .catch(error => {
+                // console.error("Error fetching location data:", error)
+                nameSection.textContent = 'Location not found. Please try a different zip code.';
+                nameSection.classList.add("error-message");
+                nameSection.classList.remove("city");
+                clearInfo();
+            });
     }
 }
 
 const handleZipCodeInput = () => {
-    const zipCode = getZipCode();
+    let zipCode = getZipCode();
 
     if (validateZipCode(zipCode)) {
         fetchData();
     } else if (zipCode === "") {
         nameSection.textContent = "";
-        tempValue.textContent = "";
-        tempUnit.style.display = "none";
-        weather.textContent = "";
-        pressure.textContent = "";
-        geoCords.textContent = "";
-        wind.textContent = "";
-
+        clearInfo()
     } else {
         nameSection.textContent = 'Please enter a valid 5-digit zip code';
         nameSection.classList.add("error-message");
-        tempValue.textContent = "";
-        tempUnit.style.display = "none";
-        weather.textContent = "";
-        pressure.textContent = "";
-        geoCords.textContent = "";
-        wind.textContent = "";
+        nameSection.classList.remove("city");
+        clearInfo();
     }
+};
+
+const clearInfo = () => {
+    tempValue.textContent = "";
+    tempUnit.style.display = "none";
+    weather.textContent = "";
+    pressure.textContent = "";
+    geoCords.textContent = "";
+    wind.textContent = "";
 };
 
 document.getElementById("zipcode").addEventListener("input", handleZipCodeInput)

@@ -47,17 +47,13 @@ const fetchData = () => {
                 }
                 return response.json();
             })
-            .catch(error => {
-                console.error("Error fetching location data:", error)
-                return;
-            })
             .then(data => {
                 const name = data.name;
                 const lat = data.lat;
                 const lon = data.lon;
                 const weatherUrl = baseUrl + `/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
 
-                geoCords.textContent = "Geo cords: [" + data.lat + ", " + data.lon + "]";
+                geoCords.textContent = "Geo coords: [" + data.lat + ", " + data.lon + "]";
                 geoCords.classList.add("geo");
 
                 fetch(weatherUrl)
@@ -104,7 +100,7 @@ const fetchData = () => {
                     });
             })
             .catch(error => {
-                // console.error("Error fetching location data:", error)
+                console.warn("Error fetching location data:", error)
                 nameSection.textContent = 'Location not found. Please try a different zip code.';
                 nameSection.classList.add("error-message");
                 nameSection.classList.remove("city");

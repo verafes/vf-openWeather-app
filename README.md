@@ -46,4 +46,4 @@ The project is structured as follows:
 4. Enter the zipcode of the location you want to check the weather for.
 
 ## Acknowledgments
-- This project was created as part of learning web development and API integration.
+- This project was created as part of learning web development and API integration at [Code the Dream](https://www.codethedream.org/).

@@ -18,6 +18,8 @@ const weather = document.getElementById("weatherDesc");
 const pressure = document.getElementById("pressure");
 const geoCords = document.getElementById("geo");
 const wind = document.getElementById("wind");
+const details = document.querySelector(".details");
+const detailsButton = document.getElementById("showDetails");
 
 const getZipCode = () => {
     return document.getElementById("zipcode").value;
@@ -88,8 +90,14 @@ const fetchData = () => {
                         pressure.textContent = "Pressure: " + weatherData.main.pressure +
                             " hpa,  Humidity: " + weatherData.main.humidity + "%";
                         pressure.classList.add("geo");
+                        pressure.style.display = "none";
                         wind.textContent = "Wind: " + weatherData.wind.speed + " m/s"
                         wind.classList.add("geo");
+                        wind.style.display = "none";
+                        //show details button
+                        detailsButton.querySelector("span").textContent = "Show additional weather details ▼";
+                        details.style.display = "block";
+                        detailsButton.style.display = "block";
                     })
                     .catch(error => {
                         console.error("Error fetching weather data:", error)
@@ -100,7 +108,9 @@ const fetchData = () => {
                     });
             })
             .catch(error => {
-                console.warn("Error fetching location data:", error)
+                console.warn("Error fetching location data: Not found", error)
+                details.hidden = true;
+                detailsButton.hidden = true;
                 nameSection.textContent = 'Location not found. Please try a different zip code.';
                 nameSection.classList.add("error-message");
                 nameSection.classList.remove("city");
@@ -109,15 +119,21 @@ const fetchData = () => {
     }
 }
 
+// Handling zipcode display
 const handleZipCodeInput = () => {
     let zipCode = getZipCode();
 
     if (validateZipCode(zipCode)) {
         fetchData();
+        detailsButton.hidden = false;
     } else if (zipCode === "") {
+        details.hidden = true;
         nameSection.textContent = "";
+        detailsButton.hidden = true;
         clearInfo()
     } else {
+        details.hidden = true;
+        detailsButton.style.display = "none";
         nameSection.textContent = 'Please enter a valid 5-digit zip code';
         nameSection.classList.add("error-message");
         nameSection.classList.remove("city");
@@ -133,6 +149,19 @@ const clearInfo = () => {
     geoCords.textContent = "";
     wind.textContent = "";
 };
+
+// Toggle visibility of pressure and wind details
+detailsButton.addEventListener('click', function() {
+    if (pressure.style.display === "none" ) {
+        pressure.style.display = "block";
+        wind.style.display = "block";
+        detailsButton.querySelector("span").textContent = "Hide additional weather details ▲";
+    } else {
+        pressure.style.display = "none";
+        wind.style.display = "none";
+        detailsButton.querySelector("span").textContent = "Show additional weather details ▼";
+    }
+});
 
 document.getElementById("zipcode").addEventListener("input", handleZipCodeInput)
 document.getElementById("zipcode").addEventListener("change", handleZipCodeInput);

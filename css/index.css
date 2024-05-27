@@ -46,7 +46,6 @@ h1 {
 .city {
     color: #eb6e4c;
     margin: 0.15em 0 0.35em 0;
-    justify-self: left;
     text-transform: capitalize;
     font-size: 3em;
 }
@@ -84,6 +83,21 @@ a:hover {
     background-color: #f5f5f5;
     text-align: center;
     padding-bottom: 0.2em;
+}
+.details {
+    display: flex;
+    justify-content: center;
+}
+#showDetails {
+    display: block;
+    margin: 0 auto 0.5em;
+    background-color: #fff;
+    padding: 0.5rem;
+    color: #eb6e4c;
+    border: none;
+    text-transform: capitalize;
+    text-align: center;
+    width: fit-content;
 }
 
 @media screen and (max-width: 600px) {
